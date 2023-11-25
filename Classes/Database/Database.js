@@ -154,8 +154,38 @@ export default class Database {
         }
     }
 
-    async FetchUser(Email) {
+    async FetchUsers(Mode, Email) {
         try {
+
+            if (Mode === "User") {
+                const UserData = await ApiUsers.findOne({Email: Email})
+                if (UserData) {
+
+                    return {
+                        Status: {
+                            Message: "User Finded Successfully!",
+                            Code: 200
+                        },
+                        Data: {
+                            Username: UserData.Username,
+                            Email: UserData.Email,
+                            Password: UserData.Password
+                        }
+                    }
+
+                } else {
+                    return {
+                        Status: {
+                            Message: "User Not Found",
+                            Code: 404
+                        }
+                    }
+                }
+            } else if (Mode === "All") {
+
+            } else {
+                return
+            }
 
         } catch (error) {
             Notification(`Database => FetchUser ${error}`)

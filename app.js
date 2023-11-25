@@ -60,8 +60,6 @@ app.post('/create', (req, res, next) => {
         console.log(e)
     })
 
-    next();
-
 })
 
 // POST Some Data Like Email, Password And Login Into User Account
@@ -85,6 +83,8 @@ app.post('/login', (req, res, next) => {
 
             default:break;
         }
+    }).catch((e) => {
+        console.log(e)
     })
 
     next();
@@ -92,7 +92,53 @@ app.post('/login', (req, res, next) => {
 })
 
 // DELETE User With Getting Some Data Like Email, Password
+app.delete('/delete', (req, res) => {
+
+    const {Email, Password} = req.body
+
+    Data.DeleteUser(Email, Password).then(message => {
+        switch (message.Status.Code) {
+            case 200:
+                res.status(200).send(message.Status.Message)
+            break;
+
+            case 401:
+                res.status(401).send(message.Status.Message)
+            break;
+
+            case 404:
+                res.status(404).send(message.Status.Message)
+            break;
+
+            default:break;
+        }
+    })
+
+    next();
+
+})
 
 // GET User Data With Getting Some Data Like Email, Password
+app.get('/user/:email', (req, res) => {
+
+    const {email} = req.params
+
+    Data.FetchUsers("User", email).then(data => {
+        switch (data.Status.Code) {
+            case 200:
+                res.status(200).send(data.Data)
+            break;
+
+            case 404:
+                res.status(404).send(data.Status.Message)
+            break;
+
+            default:break;
+        }
+    }).catch((e) => {
+        console.log(e)
+    })
+
+})
 
 Listen(app, Config.Port)
