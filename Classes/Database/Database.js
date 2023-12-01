@@ -2,8 +2,11 @@ import chalk from "chalk";
 import { connect } from "mongoose";
 
 import Notification from "../../Modules/Notification.js";
+import Authenticator from "../Auth/Authenticator.js";
+import PasswordProtection from "../PasswordProtection/PasswordProtection.js";
 
 import ApiUsers from "../../Schemas/ApiUsers.js";
+
 
 export default class Database {
 
@@ -33,7 +36,7 @@ export default class Database {
                     const User = await new ApiUsers({
                         Username: Username,
                         Email: Email,
-                        Password: Password
+                        Password: await PasswordProtection.ReGeneratePassword(Password)
                     })
 
                     await User.save().catch((e) => {
@@ -86,11 +89,14 @@ export default class Database {
                 }
             } else {
                 const UserData = await ApiUsers.findOne({Email: Email})
+                const TokenKey = await Authenticator.CreateAuthenticateToken(UserData.Username)
+
                 if (UserData) {
-                    if (Password == UserData.Password) {
+                    if (await PasswordProtection.ComparePassword(Password, UserData.Password) == true) {
                         return {
                             Status: {
                                 Message: "You Have Been Logined Successfully To Your Account!",
+                                AuthKey: TokenKey,
                                 Code: 200
                             },
                             Data: {

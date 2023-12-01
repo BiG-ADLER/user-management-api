@@ -87,7 +87,7 @@ app.post('/login', (req, res, next) => {
         console.log(e)
     })
 
-    next();
+    // next();
 
 })
 
@@ -114,7 +114,7 @@ app.delete('/delete', (req, res) => {
         }
     })
 
-    next();
+    // next();
 
 })
 
