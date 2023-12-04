@@ -52,6 +52,10 @@ Simple User Management Api With Express
 
 ## Deployment
 
+Create MongoDB Database
+
+Create `.env` File and Add `MONGOUSERNAME` and `MONGOPASSWORD` And Put Username and Password of Mongo Database In String (`""`) Format In These Values
+
 To deploy this api run this command in console(cmd)
 
 ```bash
