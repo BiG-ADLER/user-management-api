@@ -8,7 +8,7 @@ Simple User Management Api With Express
 #### Create User (Put Datas in Body With JSON Format)
 
 ```http
-  POST /create
+  POST /api/v1/user/create
 ```
 
 | Parameter | Type     | Description                |
@@ -20,7 +20,7 @@ Simple User Management Api With Express
 #### Login Into User Account (Put Datas in Body With JSON Format)
 
 ```http
-  POST /api/items
+  POST /api/v1/user/login
 ```
 
 | Parameter | Type     | Description                |
@@ -31,7 +31,7 @@ Simple User Management Api With Express
 #### Delete User Account (Put Datas in Body With JSON Format)
 
 ```http
-  DELETE /api/items
+  DELETE /api/v1/user/delete
 ```
 
 | Parameter | Type     | Description                |
@@ -42,7 +42,7 @@ Simple User Management Api With Express
 #### Get User Data
 
 ```http
-  GET /user/${email}
+  GET /api/v1/user/${email}
 ```
 
 | Parameter | Type     | Description                       |
