@@ -25,7 +25,9 @@ await CrashHandler.Load()
 await DatabaseHandler.Start()
 
 app.use(express.json())
-app.use('/api/v1/user', User)
+
+// Deploy Api Routes
+app.use(`/api/${Config.ApiVersion}/user`, User)
 
 // GET Status Of API Started or Not
 app.get('/status', (req, res) => {
